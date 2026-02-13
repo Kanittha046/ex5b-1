@@ -32,27 +32,8 @@
 	</div>
 	
 	<script>
-		 function validateTemperature(t){
-			   if(isNaN(t)){
-					msg = "Please verify whether the temperature value is correct!!!";
-					alert(msg);
-					return;
-			   }
-			   if(!(t >= -100 && t <= 100)){
-					msg = "Tempurature entered (in Celsius) must be between 0 and 100 C'";
-					alert(msg);
-					return;
-			   }
-		 }
-	    $(document).ready(function(){
-			$("button").click(function(){
-			   var t = Number($('#temp').val());//celsius
-			   var u = $('#unit').val();
-			   
-			   var chk = validateTemperature(t);
-               if(chk != null) return chk;
-			   
-			   var t1;
+		function tempConversion(t,u){
+			var t1;
 			   var u1;
 			   
 			   if(u == "F"){
@@ -65,6 +46,29 @@
 					t1 = t * (4/5);
                     u1 = "Réaumur";
 			   }
+			   return {"Temp" : t1 , "Unit" : u1}
+		}
+		function validateTemperature(t){
+			   if(isNaN(t)){
+					msg = "Please verify whether the temperature value is correct!!!";
+					alert(msg);
+					return;
+			   }
+			   if(!(t >= -100 && t <= 100)){
+					msg = "Tempurature entered (in Celsius) must be between 0 and 100 C'";
+					alert(msg);
+					return;
+			   }
+		}
+	    $(document).ready(function(){
+			$("button").click(function(){
+			   var t = Number($('#temp').val());//celsius
+			   var u = $('#unit').val();
+			   
+			   var chk = validateTemperature(t);
+               if(chk != null) return chk;
+			   
+			   var result = tempConversion(t,u);
 			   
 			   alert("Temperature is "+t1+" in "+u1);
 			});
